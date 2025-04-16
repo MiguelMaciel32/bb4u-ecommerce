@@ -4,36 +4,27 @@ import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
 import { useMobile } from "@/hooks/use-mobile"
 
+// Slides com imagens diferentes para mobile e desktop
 const slides = [
   {
     id: 1,
-    title: "CRONOGRAMA CAPILAR",
-    subtitle: "POR APENAS R$99,90",
-    description: "PROMOÇÃO",
-    cta: "GARANTA JÁ O SEU",
-    image: "/produto.jpeg",
+    desktopImage: "apc.png",
+    mobileImage: "a.jpeg",
     bgColor: "from-rose-500/70",
   },
   {
     id: 2,
-    title: "KITS COMPLETOS",
-    subtitle: "A PARTIR DE R$149,90",
-    description: "NOVIDADE",
-    cta: "CONHEÇA AGORA",
-    image: "/produto.jpeg",
-    bgColor: "from-pink-500/70",
+    desktopImage: "/carousel/slide2-desktop.jpg",
+    mobileImage: "/carousel/slide2-mobile.jpg",
+    bgColor: "from-rose-500/70",
   },
   {
     id: 3,
-    title: "MÁSCARA HIDRATANTE",
-    subtitle: "POR APENAS R$39,90",
-    description: "DESTAQUE",
-    cta: "COMPRAR",
-    image: "/produto.jpeg",
-    bgColor: "from-purple-500/70",
+    desktopImage: "/carousel/slide3-desktop.jpg",
+    mobileImage: "/carousel/slide3-mobile.jpg",
+    bgColor: "from-rose-500/70",
   },
 ]
 
@@ -61,7 +52,7 @@ export function HeroCarousel() {
 
     autoplayRef.current = setInterval(() => {
       nextSlide()
-    }, 3000)
+    }, 5000) // Aumentado para 5 segundos para dar mais tempo para visualizar as imagens
   }
 
   // Initialize autoplay
@@ -134,7 +125,7 @@ export function HeroCarousel() {
 
   return (
     <div
-      className="relative overflow-hidden rounded-xl"
+      className="relative overflow-hidden"
       ref={carouselRef}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
@@ -145,8 +136,8 @@ export function HeroCarousel() {
     >
       {/* Main Carousel */}
       <div className="relative">
-        {/* Slides */}
-        <div className="relative h-[400px] md:h-[600px]">
+        {/* Slides - Increased height for mobile from 400px to 500px */}
+        <div className="relative h-[600px] md:h-[600px]">
           {slides.map((slide, index) => (
             <div
               key={slide.id}
@@ -154,51 +145,33 @@ export function HeroCarousel() {
                 index === currentSlide ? "opacity-100" : "opacity-0 pointer-events-none"
               } absolute inset-0 transition-opacity duration-500 ease-in-out`}
             >
-              {/* Image with overlay - For both mobile and desktop */}
+              {/* Imagem diferente para mobile e desktop */}
               <div className="relative w-full h-full">
-                <Image
-                  src={slide.image || "/placeholder.svg"}
-                  alt={slide.title}
-                  fill
-                  className="object-cover"
-                  priority
-                />
+                {/* Imagem para desktop - escondida em mobile */}
+                <div className="hidden md:block w-full h-full">
+                  <Image
+                    src={slide.desktopImage || "/placeholder.svg"}
+                    alt={`Slide ${index + 1}`}
+                    fill
+                    className="object-cover object-center"
+                    priority={index === 0}
+                  />
+                </div>
+
+                {/* Imagem para mobile - escondida em desktop */}
+                <div className="block md:hidden w-full h-full">
+                  <Image
+                    src={slide.mobileImage || "/placeholder.svg"}
+                    alt={`Slide ${index + 1}`}
+                    fill
+                    className="object-cover object-center"
+                    priority={index === 0}
+                  />
+                </div>
+
                 {/* Gradient overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-r ${slide.bgColor} to-transparent opacity-90`}></div>
+                <div className={`absolute inset-0 bg-gradient-to-r ${slide.bgColor} to-transparent opacity-70`}></div>
               </div>
-
-              {/* Content overlay - Different for mobile and desktop */}
-              <div className="absolute inset-0 flex items-center">
-                <div className="container mx-auto px-4 py-8 md:py-12 lg:py-16">
-                  <div className="max-w-lg">
-                    <div className="space-y-4 text-white">
-                      {!isMobile && (
-                        <div className="inline-block px-4 py-1 bg-white/20 backdrop-blur-sm rounded-full">
-                          <p className="uppercase tracking-wider font-medium text-sm">{slide.description}</p>
-                        </div>
-                      )}
-                      <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold drop-shadow-md">{slide.title}</h2>
-                      <p className="text-2xl md:text-4xl lg:text-5xl font-light drop-shadow-md">{slide.subtitle}</p>
-                      {!isMobile && (
-                        <div className="pt-6">
-                          <Button className="rounded-full bg-white text-rose-500 hover:bg-white/90 hover:text-rose-600 px-8 py-6 text-lg font-semibold">
-                            {slide.cta}
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Limited Time Banner - Only on desktop */}
-              {!isMobile && (
-                <div className="absolute top-0 right-0 w-40 h-40 overflow-hidden z-10">
-                  <div className="bg-rose-500 text-white font-medium text-xs py-1 px-4 absolute w-56 text-center transform rotate-45 translate-x-2 translate-y-12">
-                    TEMPO LIMITADO
-                  </div>
-                </div>
-              )}
             </div>
           ))}
         </div>
@@ -216,7 +189,7 @@ export function HeroCarousel() {
             className={`w-3 h-3 rounded-full transition-all duration-300 ${
               index === currentSlide ? "bg-white w-6" : "bg-white/50"
             }`}
-            aria-label={`Go to slide ${index + 1}`}
+            aria-label={`Ir para slide ${index + 1}`}
           />
         ))}
       </div>

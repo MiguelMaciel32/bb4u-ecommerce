@@ -6,7 +6,7 @@ export function ProductHighlight() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
-            <h2 className="text-3xl font-medium text-rose-400 mb-6">Onde tudo começou ❤️</h2>
+            <h2 className="text-3xl font-medium text-rose-400 mb-6 font-extrabold">Onde tudo começou ❤️</h2>
             <p className="text-gray-700 mb-8">
               O nosso maior sucesso de vendas, A poderosa Vitamina Capilar BB4U, uma fórmula exclusiva que contém a
               última tecnologia do Silício Orgânico Nutricolin® componentes altamente selecionados para tratar você de

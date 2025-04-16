@@ -4,23 +4,17 @@ import { ProductHighlight } from "@/components/product-highlight"
 import { FaqSection } from "@/components/faq-section"
 import { NewsletterPopup } from "@/components/newsletter-popup"
 import { WhatsAppButton } from "@/components/whatsapp-button"
-import { QualityBadgesSection } from "@/components/quality-badges-carousel"
+import ProductPromo from "@/components/quality-badges-carousel"
 import { ProductCarousel2 } from "@/components/product-carousel2"
+import VideoCarousel from "@/components/video-carroseul"
+import { WarrantyBadgeAlt } from "@/components/30dias"
+import { EnhancedSupportContact } from "@/components/enhanced-support-contact"
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Announcement Bar */}
-      <div className="relative overflow-hidden bg-black text-white py-2 whitespace-nowrap">
-        <div className="animate-marquee flex">
-          <span className="mx-4">SUL / SUDESTE FRETE GRÁTIS ACIMA DE R$ 199,90</span>
-          <span className="mx-4">•</span>
-          <span className="mx-4">SUL / SUDESTE FRETE GRÁTIS ACIMA DE R$ 199,90</span>
-          <span className="mx-4">•</span>
-          <span className="mx-4">SUL / SUDESTE FRETE GRÁTIS ACIMA DE R$ 199,90</span>
-          <span className="mx-4">•</span>
-        </div>
-      </div>
+
       <main className="flex-1">
 
       <HeroCarousel />
@@ -32,18 +26,31 @@ export default function Home() {
 <ProductHighlight />
 
 {/* Quality Badges Carousel */}
-<QualityBadgesSection />
+<ProductPromo />
 
 <ProductCarousel2/>
 
+<VideoCarousel />
+
+    <div className="mt-12 "></div>
+    
+
+<WarrantyBadgeAlt />
+<div className="mt-12 "></div>
+
 {/* FAQ Section */}
 <FaqSection />
+
+<div className="container mx-auto py-12 px-4 bg-rose-50 mb-12 ">
+      <h1 className="text-2xl font-bold text-center text-rose-600 mb-4">Suporte ao Cliente</h1>
+      <EnhancedSupportContact whatsappNumber="5511999999999" email="suporte@seusite.com.br" />
+    </div>
+
       </main>
 
-      {/* Newsletter Popup */}
       <NewsletterPopup />
 
-      {/* WhatsApp Button */}
+ 
       <WhatsAppButton />
     </div>
   )
